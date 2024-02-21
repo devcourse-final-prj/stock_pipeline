@@ -8,10 +8,14 @@ on:
     branches: [ "main" ]
     paths:
       - 'airflow/dags/**'
+      - 'tests/**'
+      - '.github/workflows/**'
   pull_request:
     branches: [ "main" ]
     paths:
       - 'airflow/dags/**'
+      - 'tests/**'
+      - '.github/workflows/**'
 
   workflow_dispatch:
 
