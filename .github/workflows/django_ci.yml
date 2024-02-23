@@ -12,6 +12,8 @@ on:
       - 'web/**'
       - '.github/workflows/**'
 
+  workflow_dispatch:
+
 jobs:
   build:
 
