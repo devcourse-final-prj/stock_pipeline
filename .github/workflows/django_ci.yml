@@ -30,4 +30,4 @@ jobs:
         pip install -r web/requirements.txt
     - name: Run Tests
       run: python manage.py test
-      working-directory: web
+      working-directory: web/stock_data_flow
