@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'stock_data_flow.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'base_database',
+        'NAME': 'postgres',
         'USER': os.getenv('DATABASE_USER'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': 'localhost',
+        'HOST': os.getenv('DATABASE_HOST'),
         'PORT': '5432',  # 기본 포트
     }
 }
