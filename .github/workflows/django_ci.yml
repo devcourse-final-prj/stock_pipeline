@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.12
@@ -30,5 +32,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r web/stock_data_flow/requirements.txt
       - name: Run Tests
-        run: python manage.py test
+        run: |
+          python manage.py test
         working-directory: web/stock_data_flow
