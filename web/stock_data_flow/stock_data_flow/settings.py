@@ -130,7 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # collectstatic 명령이 정적 파일을 수집하여 저장할 경로
-STATIC_ROOT = '/static/static_files/'
+STATIC_ROOT = '/var/www/stock_data_flow/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
