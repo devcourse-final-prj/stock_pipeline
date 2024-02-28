@@ -29,22 +29,20 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.5.3
+      - name: Execute Remote SSH Commands
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy Django Application
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@34.64.83.141 << EOF
-          set -e
-          cd /home/yk99902/stock_pipeline
-          git pull origin main
-          source myenv/bin/activate
-          cd web/stock_data_flow
-          python3 manage.py collectstatic --noinput
-          python3 manage.py migrate
-          sudo systemctl daemon-reload  
-          sudo systemctl restart gunicorn.service
-          sudo systemctl reload nginx
-          EOF
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /home/yk99902/stock_pipeline
+            source myenv/bin/activate
+            git pull origin main
+            cd web/stock_data_flow
+            python3 manage.py collectstatic --noinput
+            python3 manage.py migrate
+            sudo systemctl daemon-reload  
+            sudo systemctl restart gunicorn.service
+            sudo systemctl reload nginx
