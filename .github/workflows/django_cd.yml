@@ -29,10 +29,12 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Deploy Django Application
+      - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy Django Application
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@34.64.83.141 << EOF
           set -e
