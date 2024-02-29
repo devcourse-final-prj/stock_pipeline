@@ -37,12 +37,12 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /home/yk99902/stock_pipeline
-            source myenv/bin/activate
-            git pull origin main
-            cd web/stock_data_flow
-            python3 manage.py collectstatic --noinput
-            python3 manage.py migrate
-            sudo systemctl daemon-reload  
-            sudo systemctl restart gunicorn.service
-            sudo systemctl reload nginx
+            source myenv/bin/activate || exit 1
+            cd stock_pipeline || exit 1
+            git pull origin main || exit 1
+            cd web/stock_data_flow || exit 1
+            python3 manage.py collectstatic --noinput || exit 1
+            python3 manage.py migrate || exit 1
+            sudo systemctl daemon-reload || exit 1
+            sudo systemctl restart gunicorn.service || exit 1
+            sudo systemctl reload nginx || exit 1
