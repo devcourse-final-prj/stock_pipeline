@@ -1,4 +1,4 @@
-const clock = document.querySelector("h3#clock");
+const clock = document.querySelector("h2#clock");
 
 clock.classList.add("clock");
 

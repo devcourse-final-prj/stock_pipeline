@@ -9,14 +9,8 @@
   <title>StockSight</title>
 </head>
 <body>
-  <h1>StockSight</h1>
-  <h3 id="clock">00:00:00</h3>
-  <div class="menu_bar">
-    <a href="{% url 'ml_page' %}"><button>ML 페이지</button></a>
-    <a href="{% url 'treemap_page' %}"><button>Treemap 페이지</button></a>
-    <a href="{% url 'calc_page' %}"><button>Calc 페이지</button></a>
-    <a href="{% url 'graph_page' %}"><button>Graph 페이지</button></a>
-  </div>
+  <h2 id="clock">00:00:00</h2>
   <script src="{% static 'homepage/js/clock.js' %}"></script>
+  <span>ml page</span>
 </body>
 </html>
