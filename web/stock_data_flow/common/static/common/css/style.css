@@ -12,7 +12,7 @@
     top: 20px; /* 화면 상단에 붙임 */
     height: 500px; /* 전체 높이 */
     width: 200px; /* 고정된 너비, 필요에 따라 조정 */
-    z-index: 100; /* 다른 요소들 위에 표시 */
+    border: 1px dashed gray;
 }
 
 .menu_bar a {
@@ -20,7 +20,7 @@
     padding: 10px 15px;
     text-decoration: none; /* 링크 밑줄 제거 */
     border-radius: 5px; /* 둥근 모서리 */
-    margin: 5px 0; /* 간격 조정 */
+    margin: 10px 0; /* 간격 조정 */
     display: block; /* 블록 레벨 요소로 만들기 */
 }
 
@@ -44,7 +44,7 @@
 }
 
 .menu_bar a.menu {
-    padding: 20px 20px; /* 패딩을 늘려 높이 증가 */
+    padding: 15px 15px; /* 패딩을 늘려 높이 증가 */
     font-size: 1em;
 }
 

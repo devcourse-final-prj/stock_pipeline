@@ -11,8 +11,12 @@
 <body>
   {% include 'common/menu_bar.html' %}
   <div class="content">
-    <h2 id="clock">00:00:00</h2>
-    <span>calc page</span>
+    <header>
+      <h1>Profit and Loss Calculation</h1>
+      <h3 id="clock">00:00:00</h3>
+    </header>
+    <div class="board">
+    </div>
   </div>
   <script src="{% static 'viz/js/clock.js' %}"></script>
 </body>

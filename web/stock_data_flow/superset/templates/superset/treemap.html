@@ -11,8 +11,13 @@
 <body>
   {% include 'common/menu_bar.html' %}
   <div class="content">
-    <h2 id="clock">00:00:00</h2>
-    <span class="test">treemap page</span>
+    <header>
+      <h1>Sectoral Key Stock Treemap</h1>
+      <h3 id="clock">00:00:00</h3>
+    </header>
+    <div class="board">
+      <iframe src="http://YOUR_SUPERSET_DASHBOARD_URL"></iframe>
+    </div>
   </div>
   <script src="{% static 'superset/js/clock.js' %}"></script>
 </body>
