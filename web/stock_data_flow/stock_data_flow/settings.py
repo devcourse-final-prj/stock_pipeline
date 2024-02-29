@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'homepage',
     'superset',
-    'viz'
+    'viz',
+    'common'
 ]
 
 MIDDLEWARE = [

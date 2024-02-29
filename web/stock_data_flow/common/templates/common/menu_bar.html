@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'common/css/style.css' %}">
+  <title>StockSight</title>
+</head>
+<body>
+  <!-- HTML 템플릿 -->
+  <div class="menu_bar">
+    <a href="{% url 'home_page' %}" class="title">StockSight</a>
+    <a href="" class="about">about us</a>
+    <div class="divider"></div>
+    <div class="inner_box">
+      <a href="{% url 'ml_page' %}" class="{% if request.resolver_match.url_name == 'ml_page' %}active{% endif %} menu">ML 페이지</a>
+      <a href="{% url 'treemap_page' %}" class="{% if request.resolver_match.url_name == 'treemap_page' %}active{% endif %} menu">Treemap 페이지</a>
+      <a href="{% url 'calc_page' %}" class="{% if request.resolver_match.url_name == 'calc_page' %}active{% endif %} menu">Calc 페이지</a>
+      <a href="{% url 'graph_page' %}" class="{% if request.resolver_match.url_name == 'graph_page' %}active{% endif %} menu">Graph 페이지</a>
+    </div>
+  </div>
+</body>
+</html>
