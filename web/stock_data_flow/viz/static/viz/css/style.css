@@ -19,6 +19,17 @@ body {
   border: 1px dashed gray;
 }
 
+@media (max-width: 500px) {
+  body {
+    overflow-x: auto;
+    min-width: 500px;
+  }
+
+  .content {
+    width: 500px; /* 좁은 화면에서도 고정 너비 유지 */
+  }
+}
+
 header {
   display: flex;
   flex-direction: row;
@@ -26,23 +37,37 @@ header {
   height: 5vw;
 }
 
-h1 {
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5vw;
+}
+
+#page_name {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px dashed gray;
-  height: 5vw
+  height: 5vw;
+  font-size: 2vw;
+  font-weight: bold;
 }
 
 #clock {
-  margin-top: 2vw;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px dashed gray;
+  font-size: 1.5vw;
+  font-weight: 700;
 }
 
 .board {
   border: 1px dashed rgb(103, 199, 103);
+}
+
+iframe {
+  width: calc(100%);
 }
