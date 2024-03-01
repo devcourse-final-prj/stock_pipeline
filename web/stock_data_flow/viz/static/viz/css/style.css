@@ -22,7 +22,8 @@ body {
 @media (max-width: 768px) {
 
   body {
-    overflow-x: scroll; /* 내용이 너비를 초과하면 수평 스크롤 허용 */
+    overflow-x: auto;
+    min-width: 768px;
   }
 
   .content {
