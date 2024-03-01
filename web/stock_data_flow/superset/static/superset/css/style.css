@@ -21,7 +21,7 @@ body {
 /* 화면 너비가 768px 이하일 때 */
 @media (max-width: 768px) {
   .content {
-    width: 768px; /* 좁은 화면에서도 고정 너비 유지 */
+    width: 1000px; /* 좁은 화면에서도 고정 너비 유지 */
   }
 
   body {
