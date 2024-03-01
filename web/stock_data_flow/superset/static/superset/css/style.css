@@ -20,12 +20,13 @@ body {
 
 /* 화면 너비가 768px 이하일 때 */
 @media (max-width: 768px) {
-  .content {
-    width: 1000px; /* 좁은 화면에서도 고정 너비 유지 */
-  }
 
   body {
     overflow-x: scroll; /* 내용이 너비를 초과하면 수평 스크롤 허용 */
+  }
+
+  .content {
+    width: 768px; /* 좁은 화면에서도 고정 너비 유지 */
   }
 }
 
