@@ -9,6 +9,8 @@
     left: 1vw; /* 화면 왼쪽에 붙임 */
     top: 1.5vw; /* 화면 상단에 붙임 */
     width: 16vw; /* 고정된 너비, 필요에 따라 조정 */
+    position: absolute;
+    z-index: 1000;
 }
 
 .menu_bar a {
