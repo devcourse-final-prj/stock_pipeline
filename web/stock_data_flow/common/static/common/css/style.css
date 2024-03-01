@@ -4,23 +4,19 @@
     background-color: #5F0080; /* 보라색 배경 */
     display: flex;
     flex-direction: column; /* 세로 방향 배치 */
-    padding: 10px;
-    border-radius: 10px; /* 둥근 모서리 */
+    border-radius: 0.7vw; /* 둥근 모서리 */
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     position: fixed; /* 화면에 고정 */
-    left: 20px; /* 화면 왼쪽에 붙임 */
-    top: 20px; /* 화면 상단에 붙임 */
-    height: 500px; /* 전체 높이 */
-    width: 200px; /* 고정된 너비, 필요에 따라 조정 */
-    border: 1px dashed gray;
+    left: 1vw; /* 화면 왼쪽에 붙임 */
+    top: 1.5vw; /* 화면 상단에 붙임 */
+    width: 16vw; /* 고정된 너비, 필요에 따라 조정 */
 }
 
 .menu_bar a {
     color: white; /* 글자 색상 */
     padding: 10px 15px;
     text-decoration: none; /* 링크 밑줄 제거 */
-    border-radius: 5px; /* 둥근 모서리 */
-    margin: 10px 0; /* 간격 조정 */
+    border-radius: 5px; /* 둥근 모서리 */ /* 간격 조정 */
     display: block; /* 블록 레벨 요소로 만들기 */
 }
 
@@ -40,26 +36,33 @@
 .divider {
     height: 1px; /* 구분선의 두께 */
     background-color: #dedede; /* 회색 구분선 */
-    margin: 10px 0; /* 위아래 여백 */
+    margin: 0.5vw  1vw; /* 위아래 여백 */
 }
 
 .menu_bar a.menu {
-    padding: 15px 15px; /* 패딩을 늘려 높이 증가 */
+    margin: 1vw 1vw;
+    padding: 1vw 1vw; /* 패딩을 늘려 높이 증가 */
     font-size: 1em;
 }
 
 /* 제목의 스타일 변경 */
 .menu_bar a.title {
-    font-size: 1.8em; /* 글자 크기 증가 */
+    font-size: 2em; /* 글자 크기 증가 */
     font-weight: bold; /* 굵은 글씨 */
-    margin-bottom: 5px; /* about과의 거리를 가깝게 */
+    margin-top: 1vw;
+    padding: 1vw 2vw;
 }
 
 /* about us의 스타일 변경 */
 .menu_bar a.about {
-    margin-bottom: 0px; 
+    margin-bottom: 1vw; 
+    padding: 0 2vw;
 }
 
 .inner_box {
     flex: 1;
+}
+
+.sizedbox {
+    height: 6vw;
 }
