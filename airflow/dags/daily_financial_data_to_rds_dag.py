@@ -1,6 +1,5 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook  # S3Hook import 추가
 from airflow.utils.dates import days_ago
 from airflow.hooks.mysql_hook import MySqlHook
 from datetime import datetime, timedelta
