@@ -22,11 +22,10 @@ body {
 
 #right_box {
   height: 100vh;
-  width: 50vw;
-  margin-left: 49vw;
+  width: 45vw;
+  margin-left: 54vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   position: absolute; 
   z-index: 2;
 }
@@ -60,6 +59,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin-top: 15vh;
   padding-right: 1vw;
 }
 
@@ -68,11 +68,12 @@ body {
   padding: 10px 15px;
   text-decoration: none;
   border-radius: 5px; 
-  font-size: 3.8vw;
+  font-size: 3vw;
   font-weight: bold;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  border: 1px dashed gray;
 }
 
 .no1 {
@@ -80,9 +81,9 @@ body {
 }
 
 .no2 {
-  margin-left: 12vw;
+  margin-left: 15vw;
 }
 
 .no3 {
-  margin-left: 4vw;
+  margin-left: 6vw;
 }
