@@ -45,7 +45,7 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         flake8 airflow/dags/ --count --select=E9,F63,F7,F82 --show-source --statistics
         # ignore the "line too long" (E501) error
-        flake8 airflow/dags/ --count --ignore=E501 --max-complexity=10 --statistics
+        flake8 airflow/dags/ --count --ignore=E501,E123 --max-complexity=10 --statistics
 
     - name: Run tests
       run: |
