@@ -6,7 +6,6 @@ from pykrx import stock
 from io import StringIO
 import logging
 import os
-import psycopg2
 from pendulum import timezone
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -23,7 +22,7 @@ def read_csv_from_s3(bucket_name, key, **kwargs):
         content = hook.read_key(key, bucket_name)  # S3에서 파일 내용 읽기
         content_str = StringIO(content)
         df = pd.read_csv(content_str, dtype={'stock_code': str})
-        
+
         # DataFrame을 임시 파일에 저장
         file_path = os.path.join('data', "closing_prices_history.csv")
         df.to_csv(file_path, index=False)
@@ -31,7 +30,7 @@ def read_csv_from_s3(bucket_name, key, **kwargs):
         # 파일 경로를 XCom에 push
         kwargs['ti'].xcom_push(key='file_path', value=file_path)
         logger.info(f"DataFrame saved to {file_path} and path pushed to XCom.")
-        
+
     except Exception as e:
         logger.error(f"Failed to read CSV from S3: {e}", exc_info=True)
         raise
@@ -55,7 +54,7 @@ def process_data(**kwargs):
         if file_path is None:
             logger.error("No file path returned from read_csv_from_s3 task.")
             raise AirflowFailException("No file path returned from read_csv_from_s3 task.")
-        
+
         closing_prices_history = pd.read_csv(file_path)
         closing_prices_history['date_column'] = pd.to_datetime(closing_prices_history['date_column'])
         closing_prices_history = closing_prices_history.sort_values(by=['sector_name', 'stock_code', 'kr_stock_name', 'date_column'])
@@ -108,15 +107,15 @@ def upload_csv_to_S3(bucket_name, key, **kwargs):
         hook = S3Hook(aws_conn_id="aws_conn")  # Airflow Connection ID 지정
         hook.load_file(
             filename="data/closing_prices_history.csv",
-            bucket_name=bucket_name, 
-            replace=True, 
+            bucket_name=bucket_name,
+            replace=True,
             key=key,
             )
 
     except Exception as e:
         logger.error(f"Failed to upload CSV to S3: {e}", exc_info=True)
         raise
- 
+
 
 def upload_to_gcp_sql():
 
@@ -156,7 +155,6 @@ def upload_to_gcp_sql():
         conn.close()
 
 
-
 default_args = {
     "owner": "airflow",
     "start_date": datetime(2024, 2, 28, tzinfo=timezone('Asia/Seoul')),
@@ -170,14 +168,14 @@ dag = DAG(
     catchup=False,
     schedule_interval="0 18 * * 1-5",
     tags=["stock"],
-    max_active_runs=1, 
+    max_active_runs=1,
 )
 
 read_csv_from_s3 = PythonOperator(
     task_id='read_csv_from_s3',
     python_callable=read_csv_from_s3,
     op_kwargs={
-        'bucket_name': 'de-4-3-bucket', 
+        'bucket_name': 'de-4-3-bucket',
         'key': 'raw_data/closing_prices_history.csv',
         },
     dag=dag,
