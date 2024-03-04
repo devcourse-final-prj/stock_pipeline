@@ -109,7 +109,7 @@ def upload_csv_to_S3(bucket_name, key, **kwargs):
             filename="data/closing_prices_history.csv",
             bucket_name=bucket_name,
             replace=True,
-            key=key,
+            key=key
             )
 
     except Exception as e:
@@ -176,7 +176,7 @@ read_csv_from_s3 = PythonOperator(
     python_callable=read_csv_from_s3,
     op_kwargs={
         'bucket_name': 'de-4-3-bucket',
-        'key': 'raw_data/closing_prices_history.csv',
+        'key': 'raw_data/closing_prices_history.csv'
         },
     dag=dag,
 )
@@ -192,7 +192,7 @@ upload_csv_to_S3 = PythonOperator(
     python_callable=upload_csv_to_S3,
     op_kwargs={
         'bucket_name': 'de-4-3-bucket',
-        'key': 'raw_data/closing_prices_history.csv',
+        'key': 'raw_data/closing_prices_history.csv'
         },
     dag=dag,
 )
