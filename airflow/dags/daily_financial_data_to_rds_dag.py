@@ -1,16 +1,13 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.utils.dates import days_ago
 from airflow.hooks.mysql_hook import MySqlHook
 from datetime import datetime, timedelta
 import pandas as pd
 import yfinance as yf
-import io
 import pendulum
 from plugins import slack
-from sqlalchemy import create_engine
-
 import logging
+
 
 def download_and_process_data(**context):
     local_tz = pendulum.timezone("Asia/Seoul")
@@ -23,9 +20,15 @@ def download_and_process_data(**context):
     dates = pd.date_range(start=start_date, end=end_date)
 
     # 데이터 다운로드
-    dow = yf.download('^DJI', start=start_date, end=end_date - timedelta(days=1))
-    nasdaq = yf.download('^IXIC', start=start_date, end=end_date - timedelta(days=1))
-    forex_data = yf.download('USDKRW=X', start=start_date, end=end_date - timedelta(days=1))
+    dow = yf.download('^DJI',
+                      start=start_date,
+                      end=end_date - timedelta(days=1))
+    nasdaq = yf.download('^IXIC',
+                         start=start_date,
+                         end=end_date - timedelta(days=1))
+    forex_data = yf.download('USDKRW=X',
+                             start=start_date,
+                             end=end_date - timedelta(days=1))
     logging.info("데이터 다운로드 완료")
 
     # 'Date' 인덱스를 컬럼으로 변환 및 필요한 컬럼 선택
@@ -33,9 +36,14 @@ def download_and_process_data(**context):
     nasdaq.reset_index(inplace=True)
     forex_data.reset_index(inplace=True)
 
-    dow_selected = dow[['Date', 'Adj Close']].rename(columns={'Adj Close': 'dow'})
-    nasdaq_selected = nasdaq[['Date', 'Adj Close']].rename(columns={'Adj Close': 'nasdaq'})
-    forex_selected = forex_data[['Date', 'Adj Close']].rename(columns={'Adj Close': 'exchange'})
+    dow_selected = dow[['Date', 'Adj Close']] \
+        .rename(columns={'Adj Close': 'dow'})
+
+    nasdaq_selected = nasdaq[['Date', 'Adj Close']] \
+        .rename(columns={'Adj Close': 'nasdaq'})
+
+    forex_selected = forex_data[['Date', 'Adj Close']] \
+        .rename(columns={'Adj Close': 'exchange'})
 
     # 모든 날짜를 포함하는 DataFrame 생성
     all_dates_df = pd.DataFrame(dates, columns=['Date'])
@@ -54,9 +62,16 @@ def download_and_process_data(**context):
     # 어제 데이터 업데이트
     last_row_index = merged_data.index[-1]
 
-    merged_data.at[last_row_index, 'dow'] = dow_info.history(period="1d")["Close"].iloc[-1]
-    merged_data.at[last_row_index, 'nasdaq'] = nasdaq_info.history(period="1d")["Close"].iloc[-1]
-    merged_data.at[last_row_index, 'exchange'] = forex_info.history(period="1d")["Close"].iloc[-1]
+    # 각 지수의 최신 종가를 변수에 저장
+    latest_dow_close = dow_info.history(period="1d")["Close"].iloc[-1]
+    latest_nasdaq_close = nasdaq_info.history(period="1d")["Close"].iloc[-1]
+    latest_exchange_close = forex_info.history(period="1d")["Close"].iloc[-1]
+
+    # 변수 값을 merged_data에 할당
+    merged_data.at[last_row_index, 'dow'] = latest_dow_close
+    merged_data.at[last_row_index, 'nasdaq'] = latest_nasdaq_close
+    merged_data.at[last_row_index, 'exchange'] = latest_exchange_close
+
     logging.info("최신 데이터 업데이트 완료")
 
     merged_data = merged_data.rename(columns={'Date': 'date'})
@@ -69,10 +84,6 @@ def download_and_process_data(**context):
     merged_data.dropna(inplace=True)
     logging.info("누락된 값 처리 완료")
 
-    # # CSV 파일로 저장
-    # file_path = 'FinancialData.csv'  # 로컬 환경에 맞게 경로 수정 필요
-    # merged_data.to_csv(file_path, index=False)
-
     logging.info(f"data 총 길이 : {len(merged_data)}")
 
     return merged_data
@@ -80,7 +91,8 @@ def download_and_process_data(**context):
 
 def upload_to_rds(**context):
     try:
-        df_data = context["task_instance"].xcom_pull(task_ids="download_and_process")
+        df_data = context["task_instance"] \
+            .xcom_pull(task_ids="download_and_process")
         logging.info(f"data 총 길이 : {len(df_data)}")
 
         # MySQL Hook 사용하여 RDS 연결
@@ -90,7 +102,12 @@ def upload_to_rds(**context):
         # 트랜잭션 시작
         with engine.begin() as connection:
             # 테이블 존재 여부 확인 및 삭제
-            table_exists = connection.execute("SHOW TABLES LIKE 'financial_data';").fetchone()
+            # SQL 쿼리를 변수에 저장
+            check_table_query = "SHOW TABLES LIKE 'financial_data';"
+
+            # 쿼리 실행 및 결과 저장
+            table_exists = connection.execute(check_table_query).fetchone()
+
             if table_exists:
                 connection.execute("DROP TABLE financial_data;")
 
@@ -107,7 +124,10 @@ def upload_to_rds(**context):
             ''')
 
             # 데이터프레임을 MySQL에 적재
-            df_data.to_sql('financial_data', con=connection, if_exists='append', index=False)
+            df_data.to_sql('financial_data',
+                           con=connection,
+                           if_exists='append',
+                           index=False)
 
         logging.info("Data upload to RDS completed.")
 
@@ -130,7 +150,8 @@ default_args = {
 dag = DAG(
     'daily_financial_data_to_rds',
     default_args=default_args,
-    description='Downloads and processes dow, nosdaq, exchange rate data, then uploads to rds',
+    description='Downloads and processes dow, nosdaq,\
+                        exchange rate data, then uploads to rds',
     schedule_interval='0 7 * * *',  # UTC 기준으로 매일 22시에 실행 (한국 시간 아침 7시)
     catchup=False,
 )
