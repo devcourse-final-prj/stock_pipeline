@@ -13,29 +13,48 @@ def graph_view(request):
 
 
 def get_all_sectors_and_stocks(request):
+    # 모든 섹터와 종목 가져오기
     sectors = DailyStockPrice.objects.values_list('sector_name', flat=True).distinct()
     stocks = DailyStockPrice.objects.values('stock_code', 'kr_stock_name').distinct()
     return JsonResponse({'sectors': list(sectors), 'stocks': list(stocks)})
 
 
 def get_stocks_by_sector(request):
+    # 선택한 섹터의 종목들 가져오기
     sector_name = request.GET.get('sector')
     stocks = DailyStockPrice.objects.filter(sector_name=sector_name).values('stock_code', 'kr_stock_name').distinct()
-    print(sector_name)
     return JsonResponse(list(stocks), safe=False)
 
 
-def moving_average(request, stock_code):
-    # 모델에서 데이터 가져오기
-    queryset = DailyStockPrice.objects.filter(stock_code=stock_code)
-    # 데이터프레임으로 변환
+def get_stock_data(request):
+    # 클라이언트로부터 받은 종목 코드와 이동평균 기간
+    stock_code = request.GET.get('stock_code', '')
+    moving_averages = request.GET.getlist('moving_averages[]', [])  # 이동평균 기간이 여러 개일 수 있으므로 리스트로 받음
+
+    # 해당 종목의 데이터 조회
+    queryset = DailyStockPrice.objects.filter(stock_code=stock_code).order_by('date_column')
     data = list(queryset.values('date_column', 'closing_price'))
+
+    # DataFrame으로 변환
     df = pd.DataFrame(data)
 
-    # 이동평균 및 교차점 로직 적용
+    # 이동평균선 데이터 계산
+    moving_average_data = {}
+    for ma in moving_averages:
+        period = int(ma)
+        df[f'ma_{period}'] = df['closing_price'].rolling(window=period).mean()
 
-    # 처리된 데이터를 템플릿에 전달
-    context = {
-        'data': df.to_dict(orient='records'),  # 또는 필요한 다른 형태로 데이터 전달
+        # NaN 값을 처리
+        df[f'ma_{period}'].fillna(0, inplace=True) 
+
+        # 이동평균선 데이터를 딕셔너리 형태로 저장
+        moving_average_data[f'ma_{period}'] = df[f'ma_{period}'].tolist()
+
+    # 최종 데이터를 JSON 형태로 변환하여 반환
+    response_data = {
+        'date_column': df['date_column'].tolist(),
+        'closing_price': df['closing_price'].tolist(),
+        'moving_averages': moving_average_data,
     }
-    return render(request, 'your_template.html', context)
+
+    return JsonResponse(response_data)

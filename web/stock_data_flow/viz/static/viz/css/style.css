@@ -15,7 +15,7 @@ body {
   margin-left: 18vw;
   margin-right: 1vw;
   margin-top: 1vw;
-  width: 81vw;
+  width: 80vw;
   border: 1px dashed gray;
 }
 
@@ -95,4 +95,13 @@ header {
   justify-content: center;
   align-items: center;
   padding: 0.2vw;
+}
+
+#chart_box {
+  width:70vw;
+  border: 1px dashed rgb(100, 100, 100);
+}
+
+#myChart {
+  border: 1px dashed rgb(0, 128, 233);
 }
