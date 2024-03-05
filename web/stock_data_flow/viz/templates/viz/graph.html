@@ -7,6 +7,7 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'viz/css/style.css' %}" />
   <title>StockSight</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
   {% include 'common/menu_bar.html' %}
@@ -16,8 +17,21 @@
       <span id="clock">00:00:00</span>
     </header>
     <div class="board">
+      <div id="select_box">
+        <select id="sector-select">
+          <option value="">섹터 선택</option>
+          {% for sector_name in sectors %}
+          <option value="{{ sector_name }}">{{ sector_name }}</option>
+          {% endfor %}
+        </select>
+        <select id="stock-select">
+          <option value="">먼저 섹터를 선택하세요</option>
+        </select>
+      </div>
+      <canvas id="myChart"></canvas>
     </div>
   </div>
+  <script src="{% static 'viz/js/get_stock.js' %}"></script>
   <script src="{% static 'viz/js/clock.js' %}"></script>
 </body>
 </html>

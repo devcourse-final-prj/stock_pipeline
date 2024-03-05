@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class DailyStockPrice(models.Model):
     sector_name = models.CharField(max_length=100, verbose_name="부문")
     stock_code = models.CharField(max_length=10, verbose_name="주식 코드")

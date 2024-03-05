@@ -68,6 +68,15 @@ header {
   border: 1px dashed rgb(103, 199, 103);
 }
 
-iframe {
-  width: calc(100%);
+#select_box {
+  display: flex;
+  flex-direction: row;
+  width: 40vw;
+  border: 1px dashed gray;
+}
+
+#sector-select, #stock-select {
+  width: 15vw;
+  height: 1.8vw;
+  margin-right: 1vw;
 }

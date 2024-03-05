@@ -26,4 +26,5 @@ urlpatterns = [
     path('calc/', calc_view, name='calc_page'),
     path('graph/', graph_view, name='graph_page'),
     path('admin/', admin.site.urls),
+    path('viz/', include('viz.urls')),
 ]
