@@ -80,3 +80,19 @@ header {
   height: 1.8vw;
   margin-right: 1vw;
 }
+
+#select_period {
+  display: flex;
+  flex-direction: row;
+  border: 1px dashed gray;
+  align-items: center;
+}
+
+#period_comment {
+  margin-right: 0.5vw;
+  font-size: 0.9vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2vw;
+}
