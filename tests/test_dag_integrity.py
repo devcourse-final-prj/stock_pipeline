@@ -1,7 +1,25 @@
 import pytest
+import sys
+import os
 from airflow.models import DagBag, Variable
 from airflow.utils.dag_cycle_tester import check_cycle
 from unittest.mock import patch
+
+
+airflow_variables = {
+    'key': 'value',  # 예시 변수
+}
+
+
+@pytest.fixture(scope="session", autouse=True)
+def set_airflow_test_environment():
+    # AIRFLOW_HOME 경로를 현재 작업 디렉토리로 가정합니다.
+    airflow_home = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    plugins_dir = os.path.join(airflow_home, 'airflow', 'plugins')
+
+    # Python 모듈 검색 경로에 `plugins` 디렉토리 추가
+    if plugins_dir not in sys.path:
+        sys.path.insert(0, plugins_dir)
 
 
 @pytest.fixture(scope="session")
