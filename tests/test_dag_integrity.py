@@ -3,11 +3,6 @@ from airflow.models import DagBag, Variable
 from airflow.utils.dag_cycle_tester import check_cycle
 from unittest.mock import patch
 
-# Mock Airflow Variables if necessary
-airflow_variables = {
-    'key': 'value',  # 예시 변수
-}
-
 
 @pytest.fixture(scope="session")
 def dag_bag():

@@ -9,3 +9,5 @@ psycopg2==2.9.9
 pykrx
 yfinance==0.2.36
 pandas==1.4.1
+apache-airflow-providers-mysql
+apache-airflow-providers-amazon
