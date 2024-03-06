@@ -38,7 +38,7 @@ def read_csv_from_s3(bucket_name, key, **kwargs):
 
 # 데이터 처리 함수
 def process_data(**kwargs):
-    execution_date = kwargs.get('execution_date')  # execution_date 가져오기
+    execution_date = kwargs.get('next_execution_date')  # execution_date 가져오기
     today_formatted = execution_date.strftime('%Y-%m-%d')  # execution_date를 YYYY-MM-DD 형태로 변환
     logger.info(f"작업 실행 날짜: {today_formatted}")
 
@@ -157,7 +157,7 @@ def upload_to_gcp_sql():
 
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2024, 2, 28, tzinfo=timezone('Asia/Seoul')),
+    "start_date": datetime(2024, 3, 5, tzinfo=timezone('Asia/Seoul')),
     "retries": 1,
 }
 
