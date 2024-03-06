@@ -26,7 +26,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      AIRFLOW_HOME: ${{ github.workspace }}/airflow
     steps:
     - uses: actions/checkout@v3
 
@@ -38,14 +39,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r airflow/requirements.txt
+        pip install -r requirements.txt
         
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
-        flake8 airflow/dags/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 dags/ --count --select=E9,F63,F7,F82 --show-source --statistics
         # ignore the "line too long" (E501) error
-        flake8 airflow/dags/ --count --ignore=E501,E123 --max-complexity=10 --statistics
+        flake8 dags/ --count --ignore=E501,E123 --max-complexity=10 --statistics
 
     - name: Run tests
       run: |
