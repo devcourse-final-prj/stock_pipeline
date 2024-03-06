@@ -19,12 +19,22 @@ function createChart(selectedStockCode, selectedMovingAverages, data) {
         {
             label: '종가',
             data: data.closing_price, // 종가 데이터
-            borderColor: 'rgba(0, 0, 255, 1)',
+            borderColor: 'rgb(0, 132, 255)',
             backgroundColor: 'transparent',
             type: 'line',
-            yAxisID: 'y'
+            yAxisID: 'y',
+            borderWidth: 1,
+            pointRadius: 0
         }
       ]
+  };
+
+  const colors = {
+    '5': 'rgb(255, 51, 0)',
+    '10': 'rgb(255, 124, 9)',
+    '20': 'rgb(255, 198, 26)',
+    '30': 'rgb(113, 195, 70)',
+    '50': 'rgb(202, 80, 255)'
   };
 
   // 선택된 이동평균선 데이터를 차트 데이터에 추가
@@ -35,10 +45,12 @@ function createChart(selectedStockCode, selectedMovingAverages, data) {
         chartData.datasets.push({
             label: `${ma}일 이동평균`,
             data: maData,
-            borderColor: 'gray',
+            borderColor: colors[ma],
             backgroundColor: 'transparent',
             type: 'line',
-            yAxisID: 'y'
+            yAxisID: 'y',
+            borderWidth: 1,
+            pointRadius: 0
         });
     }
   });
@@ -55,12 +67,6 @@ function createChart(selectedStockCode, selectedMovingAverages, data) {
                   beginAtZero: false // y축이 0부터 시작하지 않도록 설정
               }
           },
-          plugins: {
-              title: {
-                  display: true,
-                  text: `이동평균선 차트 - ${selectedStockCode}` // 선택된 종목 코드를 제목에 사용
-              }
-          }
       }
   });
 }

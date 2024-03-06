@@ -68,11 +68,16 @@ header {
   border: 1px dashed rgb(103, 199, 103);
 }
 
+#select_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:70vw;
+}
+
 #select_box {
   display: flex;
   flex-direction: row;
-  width: 40vw;
-  border: 1px dashed gray;
 }
 
 #sector-select, #stock-select {
@@ -104,4 +109,46 @@ header {
 
 #myChart {
   border: 1px dashed rgb(0, 128, 233);
+}
+
+.chart-title-with-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 2vw;
+  justify-content: space-between;
+}
+
+#button_box {
+  display: flex;
+  flex-direction: row;
+  height: 1.5vw;
+}
+
+.time-range-btn {
+  width: 3.5vw;
+  font-size: 0.8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 0.2vw;
+  border-width: 1px;
+  border-color: rgb(247, 232, 255);
+}
+
+.time-range-btn.active {
+  /* 활성 버튼 스타일 */
+  background-color: #5F0080;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 5px;
+}
+
+#chartTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vw;
+  font-weight: bold;
+  border: 1px dashed gray;
 }

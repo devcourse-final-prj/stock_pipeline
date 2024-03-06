@@ -9,35 +9,50 @@
   <link rel="stylesheet" href="{% static 'viz/css/style.css' %}" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  <link rel="shortcut icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
 </head>
 <body>
   {% include 'common/menu_bar.html' %}
   <div class="content">
     <header>
-      <span id="page_name">Moving_Everage</span>
+      <span id="page_name">일간 장기·단기 이동평균선</span>
       <span id="clock">00:00:00</span>
     </header>
     <div class="board">
-      <div id="select_box">
-        <select id="sector-select">
-          <option value="">섹터 선택</option>
-          {% for sector_name in sectors %}
-          <option value="{{ sector_name }}">{{ sector_name }}</option>
-          {% endfor %}
-        </select>
-        <select id="stock-select">
-          <option value="">종목 선택</option>
-        </select>
-      </div>
-      <div id="select_period">
-        <span id="period_comment">기간 2가지 선택</span>
-        <label><input type="checkbox" name="moving-average" value="5">5일</label><br>
-        <label><input type="checkbox" name="moving-average" value="10">10일</label><br>
-        <label><input type="checkbox" name="moving-average" value="20">20일</label><br>
-        <label><input type="checkbox" name="moving-average" value="30">30일</label><br>
-        <label><input type="checkbox" name="moving-average" value="50">50일</label><br>
+      <div id="select_bar">
+        <div id="select_box">
+          <select id="sector-select">
+            <option value="">섹터 선택</option>
+            {% for sector_name in sectors %}
+            <option value="{{ sector_name }}">{{ sector_name }}</option>
+            {% endfor %}
+          </select>
+          <select id="stock-select">
+            <option value="">종목 선택</option>
+          </select>
+        </div>
+        <div id="select_period">
+          <span id="period_comment">이동 평균 기간 2가지</span>
+          <label><input type="checkbox" name="moving-average" value="5">5일</label><br>
+          <label><input type="checkbox" name="moving-average" value="10">10일</label><br>
+          <label><input type="checkbox" name="moving-average" value="20">20일</label><br>
+          <label><input type="checkbox" name="moving-average" value="30">30일</label><br>
+          <label><input type="checkbox" name="moving-average" value="50">50일</label><br>
+        </div>
       </div>
       <div id="chart_box">
+        <div class="chart-title-with-buttons">
+          <span id="chartTitle"></span>
+          <div id="button_box">
+            <button class="time-range-btn" data-range="3y">3년</button>
+            <button class="time-range-btn" data-range="2y">2년</button>
+            <button class="time-range-btn active" data-range="1y">1년</button>
+            <button class="time-range-btn" data-range="6m">6개월</button>
+            <button class="time-range-btn" data-range="3m">3개월</button>
+            <button class="time-range-btn" data-range="1m">1개월</button>
+          </div>
+        </div>
         <canvas id="myChart"></canvas>
       </div>
     </div>
