@@ -11,5 +11,5 @@ yfinance==0.2.36
 pandas==1.4.1
 apache-airflow-providers-mysql
 apache-airflow-providers-amazon
-plugins
 apache-airflow-providers-postgres
+apache-airflow-providers-slack
