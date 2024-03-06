@@ -1,16 +1,14 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.utils.dates import days_ago
 from airflow.hooks.mysql_hook import MySqlHook
 from datetime import datetime, timedelta
 import pandas as pd
 import yfinance as yf
-import io
 import pendulum
 from plugins import slack
-from sqlalchemy import create_engine
 
 import logging
+
 
 def download_and_process_data(**context):
     local_tz = pendulum.timezone("Asia/Seoul")
