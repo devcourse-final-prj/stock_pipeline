@@ -7,7 +7,7 @@ from io import StringIO
 import logging
 import os
 from pendulum import timezone
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python.PythonOperator import PythonOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.exceptions import AirflowFailException
 from airflow.providers.postgres.hooks.postgres import PostgresHook
