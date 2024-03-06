@@ -13,3 +13,4 @@ apache-airflow-providers-mysql
 apache-airflow-providers-amazon
 apache-airflow-providers-postgres
 apache-airflow-providers-slack
+PyMySQL==1.1.0
