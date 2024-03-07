@@ -139,3 +139,8 @@ STATIC_ROOT = '/var/www/stock_data_flow/static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://de-4-3-alb-358204701.ap-northeast-2.elb.amazonaws.com',
+    'https://de-4-3-alb-358204701.ap-northeast-2.elb.amazonaws.com',
+]
