@@ -19,17 +19,6 @@ body {
   border: 1px dashed gray;
 }
 
-@media (max-width: 768px) {
-  body {
-    overflow-x: auto;
-    min-width: 768px;
-  }
-
-  .content {
-    width: 768px; /* 좁은 화면에서도 고정 너비 유지 */
-  }
-}
-
 header {
   display: flex;
   flex-direction: row;

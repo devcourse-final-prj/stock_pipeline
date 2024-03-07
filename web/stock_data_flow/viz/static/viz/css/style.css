@@ -16,18 +16,6 @@ body {
   margin-right: 1vw;
   margin-top: 1vw;
   width: 80vw;
-  border: 1px dashed gray;
-}
-
-@media (max-width: 768px) {
-  body {
-    overflow-x: auto;
-    min-width: 768px;
-  }
-
-  .content {
-    width: 768px; /* 좁은 화면에서도 고정 너비 유지 */
-  }
 }
 
 header {
@@ -49,7 +37,6 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px dashed gray;
   height: 5vw;
   font-size: 2vw;
   font-weight: bold;
@@ -59,20 +46,25 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px dashed gray;
   font-size: 1.5vw;
   font-weight: 700;
 }
 
 .board {
-  border: 1px dashed rgb(103, 199, 103);
+  display: flex;
+  flex-direction: row;
+}
+
+#col1 {
+  display: flex;
+  flex-direction: column;
 }
 
 #select_bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width:70vw;
+  width:72vw;
 }
 
 #select_box {
@@ -89,7 +81,6 @@ header {
 #select_period {
   display: flex;
   flex-direction: row;
-  border: 1px dashed gray;
   align-items: center;
 }
 
@@ -103,12 +94,14 @@ header {
 }
 
 #chart_box {
-  width:70vw;
-  border: 1px dashed rgb(100, 100, 100);
+  width:72vw;
 }
 
 #myChart {
-  border: 1px dashed rgb(0, 128, 233);
+  border-radius: 0.2vw;
+  border-width: 1px;
+  border-color: rgb(247, 232, 255);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 }
 
 .chart-title-with-buttons {
@@ -150,5 +143,51 @@ header {
   align-items: center;
   font-size: 1.5vw;
   font-weight: bold;
-  border: 1px dashed gray;
+}
+
+#col2 {
+  display: flex;
+  flex-direction: column;
+  width: 8vw;
+  height: 35vw;;
+  border-radius: 0.5vw;
+  margin: 0 0 0 0.5vw;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.sig {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1.3vw 0;
+}
+
+#sig_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.2vw;
+  padding: 1vw 0;
+  border-radius: 0.5vw;
+  color: white;
+  font-size: 0.9vw;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,0,0,1) 0%, rgba(0,22,255,1) 100%);
+}
+
+.sig_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7vw;
+}
+
+.sig_bar {
+  width: 7.6vw;
+  height: 1vw;
+  background: linear-gradient(90deg, rgba(0,0,0,0.8828781512605042) 0%, rgba(255,255,255,1) 100%);
+}
+
+.sized_box {
+  height: 1.5vw;
 }

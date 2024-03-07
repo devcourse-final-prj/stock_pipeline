@@ -20,44 +20,77 @@
       <span id="clock">00:00:00</span>
     </header>
     <div class="board">
-      <div id="select_bar">
-        <div id="select_box">
-          <select id="sector-select">
-            <option value="">섹터 선택</option>
-            {% for sector_name in sectors %}
-            <option value="{{ sector_name }}">{{ sector_name }}</option>
-            {% endfor %}
-          </select>
-          <select id="stock-select">
-            <option value="">종목 선택</option>
-          </select>
-        </div>
-        <div id="select_period">
-          <span id="period_comment">이동 평균 기간 2가지</span>
-          <label><input type="checkbox" name="moving-average" value="5">5일</label><br>
-          <label><input type="checkbox" name="moving-average" value="10">10일</label><br>
-          <label><input type="checkbox" name="moving-average" value="20">20일</label><br>
-          <label><input type="checkbox" name="moving-average" value="30">30일</label><br>
-          <label><input type="checkbox" name="moving-average" value="50">50일</label><br>
-        </div>
-      </div>
-      <div id="chart_box">
-        <div class="chart-title-with-buttons">
-          <span id="chartTitle"></span>
-          <div id="button_box">
-            <button class="time-range-btn" data-range="3y">3년</button>
-            <button class="time-range-btn" data-range="2y">2년</button>
-            <button class="time-range-btn active" data-range="1y">1년</button>
-            <button class="time-range-btn" data-range="6m">6개월</button>
-            <button class="time-range-btn" data-range="3m">3개월</button>
-            <button class="time-range-btn" data-range="1m">1개월</button>
+      <div id="col1">
+        <div id="select_bar">
+          <div id="select_box">
+            <select id="sector-select">
+              <option value="">섹터 선택</option>
+              {% for sector_name in sectors %}
+              <option value="{{ sector_name }}">{{ sector_name }}</option>
+              {% endfor %}
+            </select>
+            <select id="stock-select">
+              <option value="">종목 선택</option>
+            </select>
+          </div>
+          <div id="select_period">
+            <span id="period_comment">이동 평균 기간 2가지</span>
+            <label><input type="checkbox" name="moving-average" value="5">5일</label><br>
+            <label><input type="checkbox" name="moving-average" value="10">10일</label><br>
+            <label><input type="checkbox" name="moving-average" value="20">20일</label><br>
+            <label><input type="checkbox" name="moving-average" value="30">30일</label><br>
+            <label><input type="checkbox" name="moving-average" value="50">50일</label><br>
+            <label><input type="checkbox" name="moving-average" value="200">200일</label><br>
           </div>
         </div>
-        <canvas id="myChart"></canvas>
+        <div id="chart_box">
+          <div class="chart-title-with-buttons">
+            <span id="chartTitle"></span>
+            <div id="button_box">
+              <button class="time-range-btn" data-range="3y">3년</button>
+              <button class="time-range-btn" data-range="2y">2년</button>
+              <button class="time-range-btn active" data-range="1y">1년</button>
+              <button class="time-range-btn" data-range="6m">6개월</button>
+              <button class="time-range-btn" data-range="3m">3개월</button>
+              <button class="time-range-btn" data-range="1m">1개월</button>
+            </div>
+          </div>
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div id="col2">
+        <span id="sig_title">매수 · 매도 지표</span>
+        <div class="sized_box"></div>
+        <div class="sig">
+          <span class="sig_content">일간 주가 반등</span>
+          <div class="sig_bar"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content">일간 주가 반락</span>
+          <div class="sig_bar"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content mv" data-ma="5">5일 이동평균선 위</span>
+          <div class="sig_bar" data-ma-bar="5"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content mv" data-ma="20">20일 이동평균선 아래</span>
+          <div class="sig_bar" data-ma-bar="20"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content gc">골든크로스 발생</span>
+          <div class="sig_bar"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content dc">데드크로스 발생</span>
+          <div class="sig_bar"></div>
+        </div>
       </div>
     </div>
+    <div class="sized_box"></div>
   </div>
   <script src="{% static 'viz/js/graph.js' %}"></script>
+  <script src="{% static 'viz/js/signal.js' %}"></script>
   <script src="{% static 'viz/js/get_choices.js' %}"></script>
   <script src="{% static 'viz/js/clock.js' %}"></script>
 </body>

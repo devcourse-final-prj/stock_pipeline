@@ -34,7 +34,8 @@ function createChart(selectedStockCode, selectedMovingAverages, data) {
     '10': 'rgb(255, 124, 9)',
     '20': 'rgb(255, 198, 26)',
     '30': 'rgb(113, 195, 70)',
-    '50': 'rgb(202, 80, 255)'
+    '50': 'rgb(84, 31, 207)',
+    '200': 'rgb(202, 80, 255)'
   };
 
   // 선택된 이동평균선 데이터를 차트 데이터에 추가

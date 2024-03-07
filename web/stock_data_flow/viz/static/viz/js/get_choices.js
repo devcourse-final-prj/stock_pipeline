@@ -133,6 +133,15 @@ function updateChart() {
                 'range': selectedRange
             },
             success: function(data) {
+                var closingPrices = data.closing_price;
+                var analysisResults = analyzeRecentData(closingPrices);
+                console.log(analysisResults);
+                updateSignalBars(analysisResults)
+                
+                var maPositions = analyzeMAPosition(closingPrices, data.moving_averages, selectedMovingAverages);
+                console.log("maPositions:", maPositions);
+                updateMAPositionIndicators(maPositions)
+
                 createChart(selectedStockCode, selectedMovingAverages, data);
             },
             error: function(xhr, status, error) {

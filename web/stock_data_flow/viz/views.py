@@ -51,7 +51,6 @@ def get_stock_data(request):
     else:
         start_date = end_date - relativedelta(months=1)
 
-
     # 해당 종목의 데이터 조회
     queryset = DailyStockPrice.objects.filter(stock_code=stock_code, date_column__range=[start_date, end_date]).order_by('date_column')
     if not queryset.exists():
