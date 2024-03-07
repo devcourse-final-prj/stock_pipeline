@@ -59,8 +59,10 @@ header {
 
 .board {
   border: 1px dashed rgb(103, 199, 103);
+  height: 220vh;
 }
 
 iframe {
-  width: calc(100%);
+  width: 100%;
+  height: 100%;
 }
