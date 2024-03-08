@@ -14,9 +14,8 @@ body {
   flex-direction: column;
   margin-left: 18vw;
   margin-right: 1vw;
-  margin-top: 1vw;
+  margin-top: 1.5vw;
   width: 80vw;
-  border: 1px dashed gray;
 }
 
 header {
@@ -31,7 +30,6 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px dashed gray;
   height: 5vw;
   font-size: 2vw;
   font-weight: bold;
@@ -47,10 +45,12 @@ header {
 }
 
 .board {
-  height: 220vh;
+  height: 200vh;
 }
 
 iframe {
   width: 100%;
   height: 100%;
+  border: none;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
