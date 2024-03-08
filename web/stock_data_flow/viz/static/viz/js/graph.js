@@ -33,8 +33,8 @@ function createChart(selectedStockCode, selectedMovingAverages, data) {
     '5': 'rgb(255, 51, 0)',
     '10': 'rgb(255, 124, 9)',
     '20': 'rgb(255, 198, 26)',
-    '30': 'rgb(113, 195, 70)',
-    '50': 'rgb(84, 31, 207)',
+    '60': 'rgb(113, 195, 70)',
+    '120': 'rgb(84, 31, 207)',
     '200': 'rgb(202, 80, 255)'
   };
 

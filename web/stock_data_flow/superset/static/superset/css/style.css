@@ -47,7 +47,6 @@ header {
 }
 
 .board {
-  border: 1px dashed rgb(103, 199, 103);
   height: 220vh;
 }
 

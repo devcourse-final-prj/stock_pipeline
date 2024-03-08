@@ -34,46 +34,54 @@ def get_stock_data(request):
     moving_averages = request.GET.getlist('moving_averages[]', [])  # 이동평균 기간이 여러 개일 수 있으므로 리스트로 받음
     selected_range = request.GET.get('range', '1y')
 
-    # range에 따른 시작 날짜 계산
+    # 종료 날짜는 오늘로 설정
     end_date = datetime.today()
-    if selected_range == '1m':
-        start_date = end_date - relativedelta(months=1)
-    if selected_range == '3m':
-        start_date = end_date - relativedelta(months=3)
-    elif selected_range == '6m':
-        start_date = end_date - relativedelta(months=6)
-    elif selected_range == '1y':
-        start_date = end_date - relativedelta(years=1)
-    elif selected_range == '2y':
-        start_date = end_date - relativedelta(years=2)
-    elif selected_range == '3y':
-        start_date = end_date - relativedelta(years=3)
-    else:
-        start_date = end_date - relativedelta(months=1)
 
-    # 해당 종목의 데이터 조회
-    queryset = DailyStockPrice.objects.filter(stock_code=stock_code, date_column__range=[start_date, end_date]).order_by('date_column')
-    if not queryset.exists():
-        return JsonResponse({"error": "No data found for the specified stock code and date range"}, status=404)
+    # 오늘까지의 해당 주식의 전체 데이터셋 검색
+    full_dataset_query = DailyStockPrice.objects.filter(
+        stock_code=stock_code, 
+        date_column__lte=end_date
+    ).order_by('date_column')
 
-    data = list(queryset.values('date_column', 'closing_price'))
+    # 데이터셋이 존재하지 않는 경우 에러 반환
+    if not full_dataset_query.exists():
+        return JsonResponse({"error": "No data found for the specified stock code"}, status=404)
 
-    # DataFrame으로 변환
-    df = pd.DataFrame(data)
+    # 데이터를 리스트로 변환
+    full_data = list(full_dataset_query.values('date_column', 'closing_price'))
+    df_full = pd.DataFrame(full_data)
 
-    # 이동평균선 데이터 계산
+    # 전체 데이터셋에 대해 이동 평균 계산
     moving_average_data = {}
     for ma in moving_averages:
         period = int(ma)
-        df[f'ma_{period}'] = df['closing_price'].rolling(window=period, min_periods=1).mean()
+        df_full[f'ma_{period}'] = df_full['closing_price'].rolling(window=period, min_periods=1).mean()
 
-        # NaN 값을 처리
-        df[f'ma_{period}'].fillna(0, inplace=True) 
+    # 선택된 범위에 대한 시작 날짜 결정
+    if selected_range == '1m':
+        range_start_date = end_date - relativedelta(months=1)
+    elif selected_range == '3m':
+        range_start_date = end_date - relativedelta(months=3)
+    elif selected_range == '6m':
+        range_start_date = end_date - relativedelta(months=6)
+    elif selected_range == '1y':
+        range_start_date = end_date - relativedelta(years=1)
+    elif selected_range == '2y':
+        range_start_date = end_date - relativedelta(years=2)
+    elif selected_range == '3y':
+        range_start_date = end_date - relativedelta(years=3)
+    else:  # default to 1 month
+        range_start_date = end_date - relativedelta(months=1)
 
-        # 이동평균선 데이터를 딕셔너리 형태로 저장
+    # 선택된 범위에 따라 데이터프레임 필터링
+    df = df_full[(df_full['date_column'] >= range_start_date.date()) & (df_full['date_column'] <= end_date.date())]
+
+    # 각 기간에 대한 이동 평균 데이터를 응답에 추가
+    for ma in moving_averages:
+        period = int(ma)
         moving_average_data[f'ma_{period}'] = df[f'ma_{period}'].tolist()
 
-    # 최종 데이터를 JSON 형태로 변환하여 반환
+    # 요청된 날짜 범위에 포함된 데이터만을 JSON 형태로 변환하여 반환
     response_data = {
         'date_column': df['date_column'].tolist(),
         'closing_price': df['closing_price'].tolist(),
