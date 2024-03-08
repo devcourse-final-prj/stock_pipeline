@@ -71,20 +71,26 @@ function updateMAPositionIndicators(maPositions) {
         elem.textContent = `현재 종가: ${maValue}일선 ${position === 'below' ? '아래' : position === 'above' ? '위' : '일치'}`;
 
         // 해당하는 '.sig_bar'의 data-ma-bar 속성을 가진 요소 찾아 스타일 업데이트
-        const sigBar = document.querySelector(`.sig_bar[data-ma-bar="${maValue}"]`);
+        const sigBar = elem.nextElementSibling;
         if (sigBar) {
             sigBar.setAttribute('data-ma-bar', maValue);
-            sigBar.style.background = position === 'above' ?
-            'linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,255,255,1) 100%)' :
-            position === 'below' ?
-            'linear-gradient(90deg, rgba(0,14,255,1) 0%, rgba(255,255,255,1) 100%)' :
-            'linear-gradient(90deg, rgba(0,255,0,1) 0%, rgba(255,255,255,1) 100%)'; // 일치할 경우 초록색 그라데이션
-    }
+            // 현재 배경 스타일 로그에 기록
+            console.log('Current background:', sigBar.style.background);
+        
+            sigBar.style.background = 
+                position === 'below' ?
+                'linear-gradient(90deg, rgba(0,14,255,1) 0%, rgba(255,255,255,1) 100%)' : // 파란색 그라데이션
+                position === 'above' ?
+                'linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,255,255,1) 100%)' : // 빨간색 그라데이션
+                'linear-gradient(90deg, rgba(0,255,0,1) 0%, rgba(255,255,255,1) 100%)'; // 초록색 그라데이션
+            
+            // 변경된 배경 스타일 로그에 기록
+            console.log('Updated background:', sigBar.style.background);
+        }
     });
 }
 
 function analyzeCrossesOverLastDays(movingAverages, selectedMovingAverages) {
-    console.log("analyzeCrossesOverLastDays 호출"); 
     // 선택된 이동 평균선에서 단기 및 장기 이동 평균선 데이터 추출
     const shortTermMA = movingAverages[`ma_${selectedMovingAverages[0]}`];
     const longTermMA = movingAverages[`ma_${selectedMovingAverages[1]}`];
