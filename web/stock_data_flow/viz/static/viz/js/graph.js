@@ -23,7 +23,7 @@ function createChart(selectedStockCode, selectedMovingAverages, data) {
             backgroundColor: 'transparent',
             type: 'line',
             yAxisID: 'y',
-            borderWidth: 1,
+            borderWidth: 1.5,
             pointRadius: 0
         }
       ]
@@ -50,7 +50,7 @@ function createChart(selectedStockCode, selectedMovingAverages, data) {
             backgroundColor: 'transparent',
             type: 'line',
             yAxisID: 'y',
-            borderWidth: 1,
+            borderWidth: 1.5,
             pointRadius: 0
         });
     }

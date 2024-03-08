@@ -13,12 +13,21 @@
     z-index: 1000;
 }
 
+#title_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+}
+
 .menu_bar a {
     color: white; /* 글자 색상 */
     padding: 10px 15px;
     text-decoration: none; /* 링크 밑줄 제거 */
     border-radius: 5px; /* 둥근 모서리 */ /* 간격 조정 */
     display: block; /* 블록 레벨 요소로 만들기 */
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 600;
 }
 
 .menu_bar a:hover {
@@ -43,7 +52,7 @@
 .menu_bar a.menu {
     margin: 1vw 1vw;
     padding: 1vw 1vw; /* 패딩을 늘려 높이 증가 */
-    font-size: 1.3vw;
+    font-size: 1.5vw;
 }
 
 /* 제목의 스타일 변경 */
@@ -51,7 +60,7 @@
     font-size: 2.3vw; /* 글자 크기 증가 */
     font-weight: bold; /* 굵은 글씨 */
     margin-top: 1vw;
-    padding: 1vw 2vw;
+    padding: 1vw 0;
 }
 
 /* about us의 스타일 변경 */
