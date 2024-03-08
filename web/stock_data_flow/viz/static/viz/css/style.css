@@ -82,6 +82,9 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  font-size: 1vw;
+  width: 32vw;
 }
 
 #period_comment {
@@ -91,6 +94,10 @@ header {
   justify-content: center;
   align-items: center;
   padding: 0.2vw;
+}
+
+input[type="checkbox"] {
+  transform: 0.5vw; /* 체크박스를 150% 크기로 확대 */
 }
 
 #chart_box {
@@ -185,7 +192,7 @@ header {
 .sig_bar {
   width: 7.6vw;
   height: 1vw;
-  background: linear-gradient(90deg, rgba(0,0,0,0.8828781512605042) 0%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(255,255,255,1) 100%);
 }
 
 .sized_box {

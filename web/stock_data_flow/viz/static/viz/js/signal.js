@@ -22,14 +22,14 @@ function updateSignalBars(analysisResults) {
         if (elem.textContent.includes("일간 주가 반등")) {
             sigBar.style.background = analysisResults.rebound 
                 ? 'linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,255,255,1) 100%)' // 반등 시
-                : 'linear-gradient(90deg, rgba(0,0,0,0.8828781512605042) 0%, rgba(255,255,255,1) 100%)'; // 기본 그라데이션으로 복원
+                : 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(255,255,255,1) 100%)'; // 기본 그라데이션으로 복원
         }
 
         // '주가 반락'에 대한 처리
         if (elem.textContent.includes("일간 주가 반락")) {
             sigBar.style.background = analysisResults.fallback 
                 ? 'linear-gradient(90deg, rgba(0,14,255,1) 0%, rgba(255,255,255,1) 100%)' // 반락 시
-                : 'linear-gradient(90deg, rgba(0,0,0,0.8828781512605042) 0%, rgba(255,255,255,1) 100%)'; // 기본 그라데이션으로 복원
+                : 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(255,255,255,1) 100%)'; // 기본 그라데이션으로 복원
         }
     });
 }
@@ -68,7 +68,7 @@ function updateMAPositionIndicators(maPositions) {
 
         // HTML 요소의 data-ma 속성 및 텍스트 내용 업데이트
         elem.setAttribute('data-ma', maValue);
-        elem.textContent = `${maValue}일 이동평균선 ${position === 'below' ? '아래' : position === 'above' ? '위' : '일치'}`;
+        elem.textContent = `현재 종가: ${maValue}일선 ${position === 'below' ? '아래' : position === 'above' ? '위' : '일치'}`;
 
         // 해당하는 '.sig_bar'의 data-ma-bar 속성을 가진 요소 찾아 스타일 업데이트
         const sigBar = document.querySelector(`.sig_bar[data-ma-bar="${maValue}"]`);
@@ -81,4 +81,55 @@ function updateMAPositionIndicators(maPositions) {
             'linear-gradient(90deg, rgba(0,255,0,1) 0%, rgba(255,255,255,1) 100%)'; // 일치할 경우 초록색 그라데이션
     }
     });
+}
+
+function analyzeCrossesOverLastDays(movingAverages, selectedMovingAverages) {
+    console.log("analyzeCrossesOverLastDays 호출"); 
+    // 선택된 이동 평균선에서 단기 및 장기 이동 평균선 데이터 추출
+    const shortTermMA = movingAverages[`ma_${selectedMovingAverages[0]}`];
+    const longTermMA = movingAverages[`ma_${selectedMovingAverages[1]}`];
+
+    let goldenCrossOccurred = false;
+    let deadCrossOccurred = false;
+
+    // 지난 5일간 데이터 검사 (최소 6일 데이터 필요)
+    if (shortTermMA.length >= 6 && longTermMA.length >= 6) {
+        for (let i = shortTermMA.length - 6; i < shortTermMA.length - 1; i++) {
+            // 이전 날과 현재 날의 이동 평균선 값 비교
+            const prevShortTermMA = shortTermMA[i];
+            const prevLongTermMA = longTermMA[i];
+            const currentShortTermMA = shortTermMA[i + 1];
+            const currentLongTermMA = longTermMA[i + 1];
+
+            // 골든크로스 검사: 단기 이동 평균선이 장기 이동 평균선 위로 이동
+            if (prevShortTermMA <= prevLongTermMA && currentShortTermMA > currentLongTermMA) {
+                goldenCrossOccurred = true;
+            }
+
+            // 데드크로스 검사: 단기 이동 평균선이 장기 이동 평균선 아래로 이동
+            if (prevShortTermMA >= prevLongTermMA && currentShortTermMA < currentLongTermMA) {
+                deadCrossOccurred = true;
+            }
+        }
+    }
+
+    return { goldenCrossOccurred, deadCrossOccurred };
+}
+
+function updateCrossSignalBars(crossesAnalysis) {
+    // 골든크로스 'sig_bar' 요소 선택
+    const gcSigBar = document.querySelector('.sig_content.gc + .sig_bar');
+    if (gcSigBar) {
+        gcSigBar.style.background = crossesAnalysis.goldenCrossOccurred
+            ? 'linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,255,255,1) 100%)' // 골든크로스 발생 시 적색 그라데이션
+            : 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(255,255,255,1) 100%)'; // 기본 그라데이션으로 복원
+    }
+
+    // 데드크로스 'sig_bar' 요소 선택
+    const dcSigBar = document.querySelector('.sig_content.dc + .sig_bar');
+    if (dcSigBar) {
+        dcSigBar.style.background = crossesAnalysis.deadCrossOccurred
+            ? 'linear-gradient(90deg, rgba(0,14,255,1) 0%, rgba(255,255,255,1) 100%)' // 데드크로스 발생 시 청색 그라데이션
+            : 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(255,255,255,1) 100%)'; // 기본 그라데이션으로 복원
+    }
 }

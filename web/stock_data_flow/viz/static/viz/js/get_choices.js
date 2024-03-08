@@ -135,12 +135,14 @@ function updateChart() {
             success: function(data) {
                 var closingPrices = data.closing_price;
                 var analysisResults = analyzeRecentData(closingPrices);
-                console.log(analysisResults);
                 updateSignalBars(analysisResults)
                 
                 var maPositions = analyzeMAPosition(closingPrices, data.moving_averages, selectedMovingAverages);
-                console.log("maPositions:", maPositions);
                 updateMAPositionIndicators(maPositions)
+
+                var crossesAnalysis = analyzeCrossesOverLastDays(data.moving_averages, selectedMovingAverages);
+                console.log(crossesAnalysis); 
+                updateCrossSignalBars(crossesAnalysis);
 
                 createChart(selectedStockCode, selectedMovingAverages, data);
             },
