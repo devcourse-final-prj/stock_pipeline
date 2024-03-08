@@ -50,6 +50,7 @@ def get_stock_data(request):
     # 데이터를 리스트로 변환
     full_data = list(full_dataset_query.values('date_column', 'closing_price'))
     df_full = pd.DataFrame(full_data)
+    df_full = df_full.drop_duplicates(subset=['date_column', 'closing_price'])
 
     # 전체 데이터셋에 대해 이동 평균 계산
     moving_average_data = {}
