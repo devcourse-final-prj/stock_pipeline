@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockSight</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'viz/css/style.css' %}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  <link rel="shortcut icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  {% include 'common/menu_bar.html' %}
+  <div class="content">
+    <header>
+      <span id="page_name">일간 장기·단기 이동평균선</span>
+      <span id="clock">00:00:00</span>
+    </header>
+    <div class="board">
+      <div id="col1">
+        <div id="select_bar">
+          <div id="select_box">
+            <select id="sector-select">
+              <option value="">섹터 선택</option>
+              {% for sector_name in sectors %}
+              <option value="{{ sector_name }}">{{ sector_name }}</option>
+              {% endfor %}
+            </select>
+            <select id="stock-select">
+              <option value="">종목 선택</option>
+            </select>
+          </div>
+          <div id="select_period">
+            <span id="period_comment">이동 평균 기간 2가지</span>
+            <label><input type="checkbox" name="moving-average" value="5">5일</label><br>
+            <label><input type="checkbox" name="moving-average" value="10">10일</label><br>
+            <label><input type="checkbox" name="moving-average" value="20">20일</label><br>
+            <label><input type="checkbox" name="moving-average" value="60">60일</label><br>
+            <label><input type="checkbox" name="moving-average" value="120">120일</label><br>
+            <label><input type="checkbox" name="moving-average" value="200">200일</label><br>
+          </div>
+        </div>
+        <div id="chart_box">
+          <div class="chart-title-with-buttons">
+            <span id="chartTitle"></span>
+            <div id="button_box">
+              <button class="time-range-btn" data-range="3y">3년</button>
+              <button class="time-range-btn" data-range="2y">2년</button>
+              <button class="time-range-btn active" data-range="1y">1년</button>
+              <button class="time-range-btn" data-range="6m">6개월</button>
+              <button class="time-range-btn" data-range="3m">3개월</button>
+              <button class="time-range-btn" data-range="1m">1개월</button>
+            </div>
+          </div>
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div id="col2">
+        <span id="sig_title">매수 · 매도 지표</span>
+        <div class="sized_box"></div>
+        <div class="sig">
+          <span class="sig_content">일간 주가 반등</span>
+          <div class="sig_bar"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content">일간 주가 반락</span>
+          <div class="sig_bar"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content mv" data-ma="5">현재 종가: 5일선 아래</span>
+          <div class="sig_bar" data-ma-bar="5"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content mv" data-ma="20">현재 종가: 20일선 아래</span>
+          <div class="sig_bar" data-ma-bar="20"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content gc">1주 이내 골든크로스</span>
+          <div class="sig_bar"></div>
+        </div>
+        <div class="sig">
+          <span class="sig_content dc">1주 이내 데드크로스</span>
+          <div class="sig_bar"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sized_box"></div>
+  </div>
+  <script src="{% static 'viz/js/graph.js' %}"></script>
+  <script src="{% static 'viz/js/signal.js' %}"></script>
+  <script src="{% static 'viz/js/get_choices.js' %}"></script>
+  <script src="{% static 'viz/js/clock.js' %}"></script>
+</body>
+</html>

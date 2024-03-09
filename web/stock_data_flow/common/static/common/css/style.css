@@ -1,0 +1,79 @@
+/* common/static/common/css/style.css */
+
+.menu_bar {
+    background-color: #5F0080; /* 보라색 배경 */
+    display: flex;
+    flex-direction: column; /* 세로 방향 배치 */
+    border-radius: 0.7vw; /* 둥근 모서리 */
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    left: 1vw; /* 화면 왼쪽에 붙임 */
+    top: 1.5vw; /* 화면 상단에 붙임 */
+    width: 16vw; /* 고정된 너비, 필요에 따라 조정 */
+    position: absolute;
+    z-index: 1000;
+}
+
+#title_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+}
+
+.menu_bar a {
+    color: white; /* 글자 색상 */
+    padding: 10px 15px;
+    text-decoration: none; /* 링크 밑줄 제거 */
+    border-radius: 5px; /* 둥근 모서리 */ /* 간격 조정 */
+    display: block; /* 블록 레벨 요소로 만들기 */
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 600;
+}
+
+.menu_bar a:hover {
+    background-color: #8000aa; /* 마우스 오버 시 색상 변경 */
+}
+
+.menu_bar a.title:hover, .menu_bar a.about:hover {
+    /* hover 상태일 때 아무런 변화가 없도록 합니다. */
+    background-color: inherit; /* 상위 요소의 배경색을 상속받아 변경 없음을 명시합니다. */
+}
+
+.menu_bar a.active {
+    background-color: #730099; /* 활성화된 메뉴 색상 */
+}
+
+.divider {
+    height: 1px; /* 구분선의 두께 */
+    background-color: #dedede; /* 회색 구분선 */
+    margin: 0.5vw  1vw; /* 위아래 여백 */
+}
+
+.menu_bar a.menu {
+    margin: 1vw 1vw;
+    padding: 1vw 1vw; /* 패딩을 늘려 높이 증가 */
+    font-size: 1.5vw;
+}
+
+/* 제목의 스타일 변경 */
+.menu_bar a.title {
+    font-size: 2.3vw; /* 글자 크기 증가 */
+    font-weight: bold; /* 굵은 글씨 */
+    margin-top: 1vw;
+    padding: 1vw 0;
+}
+
+/* about us의 스타일 변경 */
+.menu_bar a.about {
+    margin-bottom: 1vw; 
+    padding: 0 2vw;
+    font-size: 1vw;
+}
+
+.inner_box {
+    flex: 1;
+}
+
+.sizedbox {
+    height: 6vw;
+}

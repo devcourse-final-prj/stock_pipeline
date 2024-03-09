@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'homepage/css/style.css' %}" />
+  <title>StockSight</title>
+  <link rel="shortcut icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="left_box">
+    <span id="title">StockSight</span>
+    <div id="etc">
+      <div id="etc_1">
+        <h3 id="clock">00:00:00</h3>
+        <a href="https://autumn-windscreen-3f2.notion.site/Project-Report-0eac3062c1af42bd94c22285214bd75d">Project Report</a>
+      </div>
+      <div id="etc_2">
+        <img src="{% static 'homepage/img/parrot1-removebg.png' %}" alt="파랑 앵무">
+      </div>
+    </div>
+  </div>
+  <div id="right_box">
+    <div class="menu_bar">
+      <a href="{% url 'calc_page' %}">수익률 계산</a>
+      <a href="{% url 'treemap_page' %}">주요 종목 실시간 트리맵</a>
+      <a href="{% url 'graph_page' %}">장단기 이동평균선</a>
+      <a href="{% url 'ml_page' %}">ML 주가 예측</a>
+    </div>
+  </div>
+  <script src="{% static 'homepage/js/clock.js' %}"></script>
+</body>
+</html>

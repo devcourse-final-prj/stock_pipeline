@@ -1,0 +1,199 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  font-family: "Noto Sans KR", sans-serif;
+  overflow-y: auto; 
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 18vw;
+  margin-right: 1vw;
+  margin-top: 1vw;
+  width: 80vw;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5vw;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5vw;
+}
+
+#page_name {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vw;
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+#clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vw;
+  font-weight: 700;
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+}
+
+#col1 {
+  display: flex;
+  flex-direction: column;
+}
+
+#select_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:72vw;
+}
+
+#select_box {
+  display: flex;
+  flex-direction: row;
+}
+
+#sector-select, #stock-select {
+  width: 15vw;
+  height: 1.8vw;
+  margin-right: 1vw;
+}
+
+#select_period {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1vw;
+  width: 32vw;
+}
+
+#period_comment {
+  margin-right: 0.5vw;
+  font-size: 0.9vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2vw;
+}
+
+input[type="checkbox"] {
+  transform: 0.5vw; /* 체크박스를 150% 크기로 확대 */
+}
+
+#chart_box {
+  width:72vw;
+}
+
+#myChart {
+  border-radius: 0.2vw;
+  border-width: 1px;
+  border-color: rgb(247, 232, 255);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+
+.chart-title-with-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 2vw;
+  justify-content: space-between;
+}
+
+#button_box {
+  display: flex;
+  flex-direction: row;
+  height: 1.5vw;
+}
+
+.time-range-btn {
+  width: 3.5vw;
+  font-size: 0.8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 0.2vw;
+  border-width: 1px;
+  border-color: rgb(247, 232, 255);
+}
+
+.time-range-btn.active {
+  /* 활성 버튼 스타일 */
+  background-color: #5F0080;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 5px;
+}
+
+#chartTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+#col2 {
+  display: flex;
+  flex-direction: column;
+  width: 8vw;
+  height: 35vw;;
+  border-radius: 0.5vw;
+  margin: 0 0 0 0.5vw;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.sig {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1.3vw 0;
+}
+
+#sig_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.2vw;
+  padding: 1vw 0;
+  border-radius: 0.5vw;
+  color: white;
+  font-size: 0.9vw;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,0,0,1) 0%, rgba(0,22,255,1) 100%);
+}
+
+.sig_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7vw;
+}
+
+.sig_bar {
+  width: 7.6vw;
+  height: 1vw;
+  background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(255,255,255,1) 100%);
+}
+
+.sized_box {
+  height: 1.5vw;
+}

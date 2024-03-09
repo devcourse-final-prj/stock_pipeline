@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'common/css/style.css' %}">
+  <title>StockSight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HTML 템플릿 -->
+  <div class="menu_bar">
+    <div id="title_box">
+      <a href="{% url 'home_page' %}" class="title">StockSight</a>
+    </div>
+    <a href="https://autumn-windscreen-3f2.notion.site/Project-Report-0eac3062c1af42bd94c22285214bd75d" class="about">about us</a>
+    <div class="divider"></div>
+    <div class="inner_box">
+      <a href="{% url 'calc_page' %}" class="{% if request.resolver_match.url_name == 'calc_page' %}active{% endif %} menu">수익률 계산</a>
+      <a href="{% url 'treemap_page' %}" class="{% if request.resolver_match.url_name == 'treemap_page' %}active{% endif %} menu">실시간 트리맵</a>
+      <a href="{% url 'graph_page' %}" class="{% if request.resolver_match.url_name == 'graph_page' %}active{% endif %} menu">장단기 이동평균선</a>
+      <a href="{% url 'ml_page' %}" class="{% if request.resolver_match.url_name == 'ml_page' %}active{% endif %} menu">ML 주가 예측</a>
+    </div>
+    <div class="sizedbox"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'viz/css/style.css' %}" />
+  <title>StockSight</title>
+  <link rel="shortcut icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  {% include 'common/menu_bar.html' %}
+  <div class="content">
+    <header>
+      <span id="page_name">수익률 계산</span>
+      <span id="clock">00:00:00</span>
+    </header>
+    <div class="board">
+    </div>
+  </div>
+  <script src="{% static 'viz/js/clock.js' %}"></script>
+</body>
+</html>

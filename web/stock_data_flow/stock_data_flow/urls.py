@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from superset.views import ml_view, treemap_view
+from viz.views import calc_view, graph_view
 
 urlpatterns = [
+    path('', include('homepage.urls')),
+    path('ml/', ml_view, name='ml_page'),
+    path('treemap/', treemap_view, name='treemap_page'),
+    path('calc/', calc_view, name='calc_page'),
+    path('graph/', graph_view, name='graph_page'),
     path('admin/', admin.site.urls),
-    # analyticshub 앱의 모든 URL을 루트 URL에 포함
-    path('', include('analyticshub.urls')),
+    path('viz/', include('viz.urls')),
 ]

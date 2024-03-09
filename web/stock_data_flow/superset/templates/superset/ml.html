@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'superset/css/style.css' %}" />
+  <title>StockSight</title>
+  <link rel="shortcut icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'common/img/favicon_pur.ico' %}" type="image/x-icon">
+</head>
+<body>
+  {% include 'common/menu_bar.html' %}
+  <div class="content">
+    <div class="board">
+      <iframe id="ix_iframe" src="http://de-4-3-alb-358204701.ap-northeast-2.elb.amazonaws.com:8088/superset/dashboard/de-4-3-top5?standalone=true" height="100vh" />
+    </div>
+  </div>
+  <script src="{% static 'superset/js/clock.js' %}"></script>
+</body>
+</html>
