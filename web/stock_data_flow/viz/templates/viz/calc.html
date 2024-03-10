@@ -39,20 +39,24 @@
             <div class="profits-header">섹터별 수익금(1,000만원 기준)</div>
             <div class="profits">
               {% for period, profit in details.수익.items %}
-                <div class="profit {{ profit|floatformat:2|'positive' if profit > 0 else 'negative' }}">
+                <div class="profit">
                   <div class="period">{{ period }}</div>
-                  <div class="amount">{{ profit|floatformat:2 }}</div>
+                  <!-- 수익에 따라 색상 클래스 적용 -->
+                  <div class="amount {% if profit >= 0 %}positive-profit{% else %}negative-profit{% endif %}">
+                    {{ profit|floatformat:1 }}
+                  </div>
                 </div>
               {% endfor %}
             </div>
           </div>
         </div>
       {% endfor %}
+      <!-- 빈 박스를 추가하여 총 20개의 박스가 되도록 설정 -->
       <div class="sector empty"></div>
       <div class="sector empty"></div>
       <div class="sector empty"></div>
     </div>
-  </div>
+    
   
   <script src="{% static 'viz/js/clock.js' %}"></script>
 </body>
