@@ -11,7 +11,9 @@ from django.shortcuts import render
 from django.conf import settings
 
 def calc_view(request):
+    print("#### start calc_view")
     context_data = get_calculated_data(request)
+    print("#### finished get_calculated_date")
     return render(request, "viz/calc.html", {'data': context_data})
 
 def get_calculated_data(request):
