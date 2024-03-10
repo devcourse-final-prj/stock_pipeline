@@ -21,7 +21,41 @@
       <span id="clock">00:00:00</span>
     </header>
     <div class="board">
+      <div class="grid-container">
+        {% for sector, companies in results.items %}
+          <div class="sector">
+            <h2>{{ sector }}</h2>
+            <div class="grid">
+              {% for company in companies %}
+                <div class="grid-item">
+                  <h3>{{ company.종목명 }}</h3>
+                  <div class="financials">
+                    <div class="profits">
+                      <h4>수익</h4>
+                      <ul>
+                        {% for period, value in company.수익.items %}
+                          <li>{{ period }}: {{ value|floatformat:2 }}원</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    <div class="outstanding-amounts">
+                      <h4>미체결금액</h4>
+                      <ul>
+                        {% for period, value in company.미체결금액.items %}
+                          <li>{{ period }}: {{ value|floatformat:2 }}원</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
+    
+    
   </div>
   <script src="{% static 'viz/js/clock.js' %}"></script>
 </body>
