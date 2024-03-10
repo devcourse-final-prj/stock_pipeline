@@ -231,3 +231,11 @@ input[type="checkbox"] {
 .empty {
   visibility: hidden;
 }
+
+.positive-profit {
+  color: red;
+}
+
+.negative-profit {
+  color: blue;
+}

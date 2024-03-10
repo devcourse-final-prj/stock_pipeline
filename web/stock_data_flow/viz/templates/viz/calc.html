@@ -17,38 +17,48 @@
   {% include 'common/menu_bar.html' %}
   <div class="content">
     <header>
-      <span id="page_name">수익률 계산</span>
+      <span id="page_name">수익금 계산</span>
       <span id="clock">00:00:00</span>
     </header>
-
-    {% comment %}  {% endcomment %}
+  
+    <!-- 사용자가 볼 수 있는 코멘트 영역 -->
+    <div class="user-comment">
+      해당 페이지는 섹터 별 5종목을 선정하여, 각 종목마다 최대 2,000,000원을 투자(총 10,000,000원)하여 생긴 손,수익금을 계산한 페이지 입니다. 
+    </div>
+  
     <div class="board">
       {% for sector, details in data.items %}
-          <div class="sector">
-              <div class="sector-header">{{ sector }}</div>
-              <div class="stocks">
-                  {% for stock in details.종목 %}
-                      <div class="stock">{{ stock }}</div>
-                  {% endfor %}
-              </div>
-              <div class="profits">
-                  {% for period, profit in details.수익.items %}
-                      <div class="profit">
-                          <div class="period">{{ period }}</div>
-                          <div class="amount">{{ profit }}</div>
-                      </div>
-                  {% endfor %}
-              </div>
+        <div class="sector">
+          <div class="sector-header">
+            <div>{{ sector }}</div>
+            <div>구성종목</div>
+            <div>섹터별 수익금(1,000만원 기준)</div>
           </div>
+          <div class="stocks">
+            {% for stock in details.종목 %}
+              <div class="stock">{{ stock }}</div>
+            {% endfor %}
+          </div>
+          <div class="profits">
+            {% for period, profit in details.수익.items %}
+              <div class="profit">
+                <div class="period">{{ period }}</div>
+                <!-- 수익에 따라 색상 클래스 적용 -->
+                <div class="amount {% if profit >= 0 %}positive-profit{% else %}negative-profit{% endif %}">
+                  {{ profit }}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
       {% endfor %}
       <!-- 빈 박스 추가 -->
       <div class="sector empty"></div>
       <div class="sector empty"></div>
       <div class="sector empty"></div>
+    </div>
   </div>
   
-
-  </div>
   <script src="{% static 'viz/js/clock.js' %}"></script>
 </body>
 </html>
