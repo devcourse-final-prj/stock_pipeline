@@ -217,13 +217,13 @@ input[type="checkbox"] {
 }
 
 .sector-header {
-  color: #008000; 
+  color: #000000; 
+  font-weight:bold;
   font-size: 18px; 
 }
 
 .stocks-header, .profits-header {
-  color: #008000; 
-  font-weight: bold; 
+  color: #008000;  
 }
 
 .positive-profit {
