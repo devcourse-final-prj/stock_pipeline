@@ -8,54 +8,72 @@ import boto3
 import json
 import os
 from django.shortcuts import render
-
+from django.conf import settings
 
 def calc_view(request):
-    aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
-    aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
-    region_name = os.environ.get("AWS_DEFAULT_REGION")
+    context_data = get_calculated_data(request)
+    return render(request, "viz/calc.html", {'data': context_data})
 
-    s3 = boto3.client(
-        "s3",
-        aws_access_key_id=aws_access_key,
-        aws_secret_access_key=aws_secret_access_key,
-        region_name=region_name,
-    )
+def get_calculated_data(request):
+    # AWS S3 클라이언트 초기화
+    s3 = boto3.client('s3',
+                      aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                      aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                      region_name=settings.AWS_REGION_NAME)
 
-    bucket_name = "de-4-3-bucket"
-    s3_file_name = "airflow/data/krx_calculation_data.json"
-
+    # S3 버킷에서 데이터 파일 가져오기
+    bucket_name = 'de-4-3-bucket'
+    s3_file_name = 'airflow/data/krx_calculation_data.json'
     obj = s3.get_object(Bucket=bucket_name, Key=s3_file_name)
-    file_content = obj["Body"].read().decode("utf-8")
+    file_content = obj['Body'].read().decode('utf-8')
 
+    # JSON 데이터 처리
     data = json.loads(file_content)
+    total_profits = calculate_profits(data)
+    formatted_data = format_data(data, total_profits)
 
-    results = calculate_results(data)
+    # 컨텍스트 데이터 반환
+    return formatted_data
 
-    return render(request, "viz/calc.html", {"results": results})
+
+def calculate_profits(data):
+    """
+    profit 계산 함수 
+    """
+    sectors_profit = {}
 
 
-def calculate_results(data):
-    results = {}
-    for category, items in data.items():
-        category_result = []
-        for item in items:
-            종목명 = item["종목명"]
-            수익_합계 = {}
-            미체결금액_합계 = {}
-            for period, value in item["수익"].items():
-                if period not in 수익_합계:
-                    수익_합계[period] = 0
-                수익_합계[period] += value
-                if period not in 미체결금액_합계:
-                    미체결금액_합계[period] = 0
-                미체결금액_합계[period] += 2000000 - item["투자 금액"][period]
+    for sector, companies in data.items():
+        sector_profits = {
+            '7일전': 0,
+            '14일전': 0,
+            '30일전': 0,
+            '90일전': 0,
+            '180일전': 0,
+            '365일전': 0,
+        }
 
-            category_result.append(
-                {"종목명": 종목명, "수익": 수익_합계, "미체결금액": 미체결금액_합계}
-            )
-        results[category] = category_result
-    return results
+        for company in companies:
+            for period, profit in company['수익'].items():
+                sector_profits[period.split()[0]] += profit
+        sectors_profit[sector] = sector_profits
+
+    return sectors_profit
+
+
+def format_data(data, total_profits):
+    """
+    formatter for total profit data   
+    """
+    formatted_data = {}
+
+    for sector, profits in total_profits.items():
+        formatted_data[sector] = {
+            "종목": [company['종목명'] for company in data[sector]],
+            "수익": {k + ' 구매시 손,수익금': v for k, v in profits.items()}
+        }
+
+    return formatted_data
 
 
 def graph_view(request):

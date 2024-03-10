@@ -198,38 +198,36 @@ input[type="checkbox"] {
   height: 1.5vw;
 }
 
-.grid-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* 박스 사이의 간격 */
-}
 
-.grid {
+/*  */
+.board {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 가로로 5개의 열 생성 */
-  gap: 10px; /* 그리드 아이템 사이의 간격 */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 }
 
-.grid-item {
-  border: 1px solid lightgrey; /* 옅은 회색 선 */
-  padding: 10px; /* 내부 여백 */
+.sector {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f8f8f8; /* 배경색 추가 */
 }
 
-/* 반응형 디자인을 위한 미디어 쿼리, 화면 크기에 따라 열 개수 조정 */
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr); /* 가로로 3개의 열 생성 */
-  }
+.sector-header {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr); /* 가로로 2개의 열 생성 */
-  }
+.stocks, .profits {
+  margin-bottom: 10px;
 }
 
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr; /* 모바일 기기에는 한 줄에 하나의 열만 표시 */
-  }
+.stock, .profit {
+  background: #fff; /* 종목과 수익 박스 배경색 */
+  padding: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eee; /* 종목과 수익을 구분하는 선 */
+}
+
+.empty {
+  visibility: hidden;
 }

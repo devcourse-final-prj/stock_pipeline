@@ -144,3 +144,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://de-4-3-alb-358204701.ap-northeast-2.elb.amazonaws.com',
     'https://de-4-3-alb-358204701.ap-northeast-2.elb.amazonaws.com',
 ]
+
+# calc
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_REGION_NAME = os.environ.get('AWS_REGION_NAME')

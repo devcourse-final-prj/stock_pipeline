@@ -20,8 +20,34 @@
       <span id="page_name">수익률 계산</span>
       <span id="clock">00:00:00</span>
     </header>
+
+    {% comment %}  {% endcomment %}
     <div class="board">
-    </div>
+      {% for sector, details in data.items %}
+          <div class="sector">
+              <div class="sector-header">{{ sector }}</div>
+              <div class="stocks">
+                  {% for stock in details.종목 %}
+                      <div class="stock">{{ stock }}</div>
+                  {% endfor %}
+              </div>
+              <div class="profits">
+                  {% for period, profit in details.수익.items %}
+                      <div class="profit">
+                          <div class="period">{{ period }}</div>
+                          <div class="amount">{{ profit }}</div>
+                      </div>
+                  {% endfor %}
+              </div>
+          </div>
+      {% endfor %}
+      <!-- 빈 박스 추가 -->
+      <div class="sector empty"></div>
+      <div class="sector empty"></div>
+      <div class="sector empty"></div>
+  </div>
+  
+
   </div>
   <script src="{% static 'viz/js/clock.js' %}"></script>
 </body>
