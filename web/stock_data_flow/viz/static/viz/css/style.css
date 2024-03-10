@@ -206,15 +206,19 @@ input[type="checkbox"] {
   gap: 10px;
 }
 
+.description {
+  margin-bottom: 5px; 
+}
+
 .sector {
   border: 1px solid #ccc;
   padding: 10px;
-  background-color: #f8f8f8; /* 배경색 추가 */
+  background-color: #f8f8f8; 
 }
 
 .sector-header {
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .stocks, .profits {
@@ -222,10 +226,10 @@ input[type="checkbox"] {
 }
 
 .stock, .profit {
-  background: #fff; /* 종목과 수익 박스 배경색 */
+  background: #fff; 
   padding: 5px;
   margin-bottom: 5px;
-  border-bottom: 1px solid #eee; /* 종목과 수익을 구분하는 선 */
+  border-bottom: 1px solid #eee; 
 }
 
 .empty {
